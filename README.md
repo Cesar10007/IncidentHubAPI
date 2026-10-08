@@ -45,10 +45,19 @@ Tokens: `Bearer instructor-token` (admin) y `Bearer technician-token` (técnico)
 - **error:** convierte los `AppError` en respuestas uniformes.
 
 ## DTO vs Model
-ESCRIBE AQUÍ CON TUS PALABRAS la diferencia.
+Model: es cómo existe el incidente dentro de la aplicación. Tiene todos los campos: id, title, description, reporter, location, priority, status, estimatedMinutes y createdAt.
+
+DTO: son los datos que el cliente puede enviar en una operación. En POST son solo title, description, reporter, location, priority y estimatedMinutes.
+
+Diferencias:el DTO es el formulario que llena el usuario, y el Model es el registro completo que guarda el sistema, con lo que el sistema agregó.
 
 ## Reflexión
-ESCRIBE AQUÍ CON TUS PALABRAS las ventajas de usar middlewares en vez de poner todo en cada controller.
+La pregunta es: ¿qué ventajas tiene usar middlewares para validaciones, autenticación y errores, en vez de escribir todo en cada controller?
+
+Ideas para que las escribas con tus palabras (2 o 3 frases bastan):
+
+No repites código: la validación y el token se escriben una vez y sirven para todas las rutas.
+El controller queda limpio: solo hace su trabajo (crear, buscar, borrar).
+Es más fácil cambiar algo: si cambia una regla (por ejemplo, los 480 minutos), la modificas en un solo archivo.
 
 ## Evidencias
-Las pruebas están en la carpeta `evidencias/`.
