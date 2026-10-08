@@ -1,8 +1,9 @@
 import type { RequestHandler } from "express";
 import { generateIncidentId, incidents } from "../data/incidents.data";
 import type { CreateIncidentDto } from "../dtos/incident.dto";
-import type { Incident } from "../models/incident.model";
+import type { Incident, IncidentStatus } from "../models/incident.model";
 import { AppError } from "../errors/app-error";
+import { assertValidTransition } from "../services/incident-rules";
 
 export const getAllIncidents: RequestHandler = (_req, res) => {
   res.status(200).json({
@@ -68,6 +69,22 @@ export const updateIncident: RequestHandler = (req, res) => {
   if (updates.estimatedMinutes !== undefined) {
     incident.estimatedMinutes = updates.estimatedMinutes;
   }
+
+  res.status(200).json({ ok: true, data: incident });
+};
+
+export const changeIncidentStatus: RequestHandler = (req, res) => {
+  const id = Number(req.params.id);
+  const incident = incidents.find((item) => item.id === id);
+
+  if (!incident) {
+    throw new AppError(404, "Incident not found");
+  }
+
+  const nextStatus = req.body?.status as IncidentStatus;
+
+  assertValidTransition(incident.status, nextStatus);
+  incident.status = nextStatus;
 
   res.status(200).json({ ok: true, data: incident });
 };
