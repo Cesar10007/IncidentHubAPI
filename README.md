@@ -46,7 +46,7 @@ Tokens: `Bearer instructor-token` (admin) y `Bearer technician-token` (técnico)
 
 # DTO vs Model
 
-* **Model:** Es el incidente completo tal cual vive en la aplicación y en la base de datos. Lleva absolutamente todo: `id`, `title`, `description`, `reporter`, `location`, `priority`, `status`, `estimatedMinutes` y `createdAt`.
+* **Model:** Es el incidente completo tal cual vive en la aplicación. Lleva absolutamente todo: `id`, `title`, `description`, `reporter`, `location`, `priority`, `status`, `estimatedMinutes` y `createdAt`.
 * **DTO:** Son únicamente los datos que el usuario nos manda al hacer una petición. Para un `POST`, por ejemplo, solo necesitamos `title`, `description`, `reporter`, `location`, `priority` y `estimatedMinutes`.
 
 **¿La diferencia clave?** Piensa en el DTO como el formulario que llena la persona, mientras que el Model es la ficha completa que guarda el sistema con sus datos automáticos (como el ID, la fecha de creación y el estado inicial).
