@@ -44,20 +44,17 @@ Tokens: `Bearer instructor-token` (admin) y `Bearer technician-token` (técnico)
 - **notFound:** ruta inexistente responde 404.
 - **error:** convierte los `AppError` en respuestas uniformes.
 
-## DTO vs Model
-Model: es cómo existe el incidente dentro de la aplicación. Tiene todos los campos: id, title, description, reporter, location, priority, status, estimatedMinutes y createdAt.
+# DTO vs Model
 
-DTO: son los datos que el cliente puede enviar en una operación. En POST son solo title, description, reporter, location, priority y estimatedMinutes.
+* **Model:** Es el incidente completo tal cual vive en la aplicación y en la base de datos. Lleva absolutamente todo: `id`, `title`, `description`, `reporter`, `location`, `priority`, `status`, `estimatedMinutes` y `createdAt`.
+* **DTO:** Son únicamente los datos que el usuario nos manda al hacer una petición. Para un `POST`, por ejemplo, solo necesitamos `title`, `description`, `reporter`, `location`, `priority` y `estimatedMinutes`.
 
-Diferencias:el DTO es el formulario que llena el usuario, y el Model es el registro completo que guarda el sistema, con lo que el sistema agregó.
+**¿La diferencia clave?** Piensa en el DTO como el formulario que llena la persona, mientras que el Model es la ficha completa que guarda el sistema con sus datos automáticos (como el ID, la fecha de creación y el estado inicial).
 
-## Reflexión
-La pregunta es: ¿qué ventajas tiene usar middlewares para validaciones, autenticación y errores, en vez de escribir todo en cada controller?
+---
 
-Ideas para que las escribas con tus palabras (2 o 3 frases bastan):
+# Reflexión
 
-No repites código: la validación y el token se escriben una vez y sirven para todas las rutas.
-El controller queda limpio: solo hace su trabajo (crear, buscar, borrar).
-Es más fácil cambiar algo: si cambia una regla (por ejemplo, los 480 minutos), la modificas en un solo archivo.
+Usar middlewares nos evita reinventar la rueda en cada *controller*, porque la lógica de validar datos o revisar tokens se escribe una sola vez y se aplica a las rutas que necesitemos. Esto deja los *controllers* impecables, enfocados únicamente en su tarea principal (como crear, buscar o eliminar), y hace que mantener el código sea facilísimo: si el día de mañana cambia una regla, solo ajustas un archivo y listo.
 
 ## Evidencias
