@@ -6,9 +6,9 @@ export const validateCriticalTime = (
   _res: Response,
   next: NextFunction
 ): void => {
-  const { priority, estimatedMinutes } = req.body;
-
   try {
+    const { priority, estimatedMinutes } = req.body;
+
     assertCriticalTime(priority, estimatedMinutes);
     next();
   } catch (error) {
