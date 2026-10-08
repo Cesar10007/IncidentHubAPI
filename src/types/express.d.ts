@@ -5,5 +5,9 @@ declare namespace Express {
       method: string;
       path: string;
     };
+    user?: {
+      token: string;
+      role: "admin" | "technician";
+    };
   }
 }
