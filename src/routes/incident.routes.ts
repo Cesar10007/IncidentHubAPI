@@ -9,16 +9,30 @@ import {
   getPendingIncidents,
   updateIncident,
 } from "../controllers/incident.controller";
+import { validateId } from "../middlewares/validate-id.middleware";
+import { validateIncident } from "../middlewares/validate-incident.middleware";
+import { validatePriority } from "../middlewares/validate-priority.middleware";
 
 export const incidentRoutes = Router();
 
 incidentRoutes.get("/", getAllIncidents);
-incidentRoutes.post("/", createIncident);
+incidentRoutes.post(
+  "/",
+  validateIncident,
+  validatePriority,
+  createIncident
+);
 
 incidentRoutes.get("/critical", getCriticalIncidents);
 incidentRoutes.get("/pending", getPendingIncidents);
 incidentRoutes.get("/stats", getIncidentStats);
 
-incidentRoutes.get("/:id", getIncidentById);
-incidentRoutes.put("/:id", updateIncident);
-incidentRoutes.patch("/:id/status", changeIncidentStatus);
+incidentRoutes.get("/:id", validateId, getIncidentById);
+incidentRoutes.put(
+  "/:id",
+  validateId,
+  validateIncident,
+  validatePriority,
+  updateIncident
+);
+incidentRoutes.patch("/:id/status", validateId, changeIncidentStatus);
