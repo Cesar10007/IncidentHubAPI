@@ -12,6 +12,7 @@ import {
 import { validateId } from "../middlewares/validate-id.middleware";
 import { validateIncident } from "../middlewares/validate-incident.middleware";
 import { validatePriority } from "../middlewares/validate-priority.middleware";
+import { validateTime } from "../middlewares/validate-time.middleware";
 
 export const incidentRoutes = Router();
 
@@ -20,6 +21,7 @@ incidentRoutes.post(
   "/",
   validateIncident,
   validatePriority,
+  validateTime,
   createIncident
 );
 
@@ -33,6 +35,7 @@ incidentRoutes.put(
   validateId,
   validateIncident,
   validatePriority,
+  validateTime,
   updateIncident
 );
 incidentRoutes.patch("/:id/status", validateId, changeIncidentStatus);
